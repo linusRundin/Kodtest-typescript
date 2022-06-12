@@ -16,7 +16,14 @@ type postRespond = {
 
 export default function AlignItemsList(commentData: postRespond) {
 
-
+    type commentType = {
+        id: Number,
+        author: String,
+        comment: String,
+        CommentId: Number,
+        createdAt: string,
+        updatedAt: String;
+      };
     const dispatch = useDispatch();
     const {getComments} = bindActionCreators(actionCreators, dispatch) 
     const state = useSelector((state: State) => state.comments)
@@ -26,20 +33,19 @@ export default function AlignItemsList(commentData: postRespond) {
     };
 
     
-    
+    const [list , setList] = useState<commentType[]>()
     
     useEffect( () => {
     console.log("USEEFFECT")
     getComments(commentData.id)
-    
-      }, []);
-
+    setList(state)
+      }, [state]);
       console.log("REPLY")
       console.log(state)
 
       return (
         <div style={styles}>
-          {state ? state.map((comment) => 
+          {list ? list.map((comment) => 
             <Comment id={comment.id} author={comment.author} comment={comment.comment} commentId={comment.CommentId} />
             ): <p>Inga Kommentarer</p>}
         </div>

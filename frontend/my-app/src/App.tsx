@@ -19,7 +19,7 @@ function App() {
     }}>
       <div className='comments'>
         <CommentList/>
-        <Input/>
+        <Input cBId={1} cId={null} />
       </div>
     </div>
   );

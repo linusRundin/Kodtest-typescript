@@ -131,9 +131,12 @@ const NameInput = React.forwardRef(function CustomInput(
   );
 });
 
+type postRespond = {
+  cBId: Number | null,
+  cId: Number | null
+};
 
-
-export default function Input() {
+export default function Input(commentData: postRespond) {
   const dispatch = useDispatch();
   const {addComment, getAllComments} = bindActionCreators(actionCreators, dispatch) 
 
@@ -144,7 +147,12 @@ export default function Input() {
     <div>
       <NameInput onChange={event => setName(event.target.value)} aria-label="Demo input" placeholder="Namn"></NameInput>
       <CommentInput onChange={event => setText(event.target.value)} aria-label="Demo input" multiline placeholder="Kommentera här!" />
-      <Button onClick= {() => {addComment(name, text, 1); getAllComments();} }>Skicka</Button>
+      <Button onClick= {() => {
+
+        addComment(name, text, commentData.cBId, commentData.cId); 
+        getAllComments();
+
+        } }>Skicka</Button>
     </div>
     
   );

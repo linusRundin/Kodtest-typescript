@@ -26,9 +26,10 @@ export default function AlignItemsList() {
 
     useEffect( () => {
     getAllComments()
-    
-      }, []);
-    
+
+      }, [state]);
+      console.log(state)
+      
     return (
         <div>
             {state ? state.map((comment) => 

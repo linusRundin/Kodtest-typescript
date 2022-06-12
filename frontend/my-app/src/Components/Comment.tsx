@@ -58,7 +58,7 @@ export default function AlignItemsList(commentData: postRespond) {
   </div>
   {reply &&
     <><ReplyComment id={commentData.id} />
-    <Input /></>
+    <Input cId={commentData.id} cBId={commentData.commentId} /></>
     }
 </div>
 );

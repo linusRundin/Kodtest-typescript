@@ -135,7 +135,7 @@ const NameInput = React.forwardRef(function CustomInput(
 
 export default function Input() {
   const dispatch = useDispatch();
-  const {addComment} = bindActionCreators(actionCreators, dispatch) 
+  const {addComment, getAllComments} = bindActionCreators(actionCreators, dispatch) 
   const state = useSelector((state: State) => state.comment)
 
   const [name, setName] = useState('')
@@ -145,7 +145,7 @@ export default function Input() {
     <div>
       <NameInput onChange={event => setName(event.target.value)} aria-label="Demo input" placeholder="Namn"></NameInput>
       <CommentInput onChange={event => setText(event.target.value)} aria-label="Demo input" multiline placeholder="Kommentera här!" />
-      <Button onClick= {() => addComment(name, text, 1)}>Skicka</Button>
+      <Button onClick= {() => {addComment(name, text, 1); getAllComments();} }>Skicka</Button>
     </div>
     
   );

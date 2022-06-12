@@ -27,7 +27,7 @@ export const getAllComments = () => {
 export const getComments = (id: Number) => {
     console.log("HERE")
     return async (dispatch: Dispatch<commentsActionType>) => {
-        const res = await axios.get(`http://localhost:8080/comment/getComment/` + id, 
+        const res = await axios.get(`http://localhost:8080/comment/getComment/` + 1, 
         {})
             dispatch( {
                 type: "commentsOnPost",

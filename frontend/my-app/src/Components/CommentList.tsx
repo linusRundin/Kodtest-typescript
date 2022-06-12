@@ -31,22 +31,24 @@ export default function AlignItemsList() {
         createdAt: "",
         updatedAt: "",
       }]
-    const [comments, setItems] = useState(example) 
+    const [comments, setItems] = useState<Array<commentType> | []>([]) 
 
     useEffect( () => {
-    setItems(state)
     getAllComments()
+    setItems(state)
     
+
       }, []);
     
       
-      console.log(comments)
+      console.log("COMMENTLIST")
+      console.log(state)
 
     return (
         <div>
-            {comments.map((comment) => 
+            {state ? state.map((comment) => 
             <Comment id={comment.id} author={comment.author} comment={comment.comment} commentId={comment.CommentId} />
-            )}
+            ): <p>Inga Kommentera</p>}
         </div>
     );
 

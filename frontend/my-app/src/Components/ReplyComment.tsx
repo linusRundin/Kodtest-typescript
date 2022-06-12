@@ -43,20 +43,24 @@ export default function AlignItemsList(commentData: postRespond) {
         updatedAt: "",
     }]
     
-    const [comments, setItems] = useState(example) 
+    const [comments, setItems] = useState<Array<commentType> | []>([]) 
     
     useEffect( () => {
+    console.log("USEEFFECT")
     getComments(commentData.id)
     setItems(state)
+
     
       }, []);
 
+      console.log("REPLY")
       console.log(state)
+
       return (
         <div style={styles}>
-          {comments.map((comment) => 
+          {state ? state.map((comment) => 
             <Comment id={comment.id} author={comment.author} comment={comment.comment} commentId={comment.CommentId} />
-            )}
+            ): <p>Inga Kommentarer</p>}
         </div>
       );
 }

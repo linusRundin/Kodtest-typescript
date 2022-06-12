@@ -19,37 +19,18 @@ export default function AlignItemsList(commentData: postRespond) {
 
     const dispatch = useDispatch();
     const {getComments} = bindActionCreators(actionCreators, dispatch) 
-    const state = useSelector((state: State) => state.getComments)
+    const state = useSelector((state: State) => state.comments)
     const styles = {
         marginLeft: "50px",
         width: "80%" 
     };
 
-    type commentType = {
-        id: Number,
-        author: String,
-        comment: String,
-        CommentId: Number,
-        createdAt: string,
-        updatedAt: String;
-      };
-      
-    let example: Array<commentType> =[{
-        id: 1,
-        author: "",
-        comment: "",
-        CommentId: 1,
-        createdAt: "",
-        updatedAt: "",
-    }]
     
-    const [comments, setItems] = useState<Array<commentType> | []>([]) 
+    
     
     useEffect( () => {
     console.log("USEEFFECT")
     getComments(commentData.id)
-    setItems(state)
-
     
       }, []);
 

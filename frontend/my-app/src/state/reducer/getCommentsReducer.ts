@@ -1,14 +1,33 @@
 import {commentsActionType}  from "../actions/index"
 
+type commentType = {
+    id: Number,
+    author: String,
+    comment: String,
+    CommentId: Number,
+    createdAt: string,
+    updatedAt: String;
+  };
+type commentListType = {
+    allComments: commentType[],
+    comments: commentType[],
+  };
+
+const emptyList: commentType[] = []
+
+const initalState = {
+    allComments: emptyList,
+    comments: emptyList,
+ }
 
 
-const reducer = (state: Array<Object> = [], action: commentsActionType ) => {
+const reducer = (state: commentListType  = initalState, action: commentsActionType ) => {
 
     switch (action.type){
         case "commentsOnPost":
-            return state = action.comments;
+            return state['comments'] = action.comments;
         default:
-            return state = []
+            return state['comments'] = emptyList
     }
 }
 

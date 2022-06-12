@@ -136,7 +136,6 @@ const NameInput = React.forwardRef(function CustomInput(
 export default function Input() {
   const dispatch = useDispatch();
   const {addComment, getAllComments} = bindActionCreators(actionCreators, dispatch) 
-  const state = useSelector((state: State) => state.comment)
 
   const [name, setName] = useState('')
   const [text, setText] = useState('')

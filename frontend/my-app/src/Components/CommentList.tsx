@@ -23,27 +23,12 @@ export default function AlignItemsList() {
     const {getAllComments} = bindActionCreators(actionCreators, dispatch) 
     const state = useSelector((state: State) => state.allComments)
       
-    let example: Array<commentType> =[{
-        id: 1,
-        author: "",
-        comment: "",
-        CommentId: 1,
-        createdAt: "",
-        updatedAt: "",
-      }]
-    const [comments, setItems] = useState<Array<commentType> | []>([]) 
 
     useEffect( () => {
     getAllComments()
-    setItems(state)
     
-
       }, []);
     
-      
-      console.log("COMMENTLIST")
-      console.log(state)
-
     return (
         <div>
             {state ? state.map((comment) => 

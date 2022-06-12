@@ -1,4 +1,4 @@
-type postRespond = {
+type commentType = {
     id: Number,
     author: String,
     comment: String,
@@ -13,12 +13,12 @@ interface commentAction {
 
 interface allCommentAction {
     type: "listOfComments",
-    listOfComments: Array<postRespond>
+    listOfComments: Array<commentType>
 }
 
 interface commentsAction {
     type: "commentsOnPost",
-    comments: Array<postRespond>
+    comments: Array<commentType>
 }
 
 

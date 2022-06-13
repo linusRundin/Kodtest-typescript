@@ -26,6 +26,8 @@ const reducer = (state: commentListType = initalState, action: Action ): comment
 
     switch (action.type){
         case "listOfComments":
+            console.log("är i listofcomments")
+            console.log(state['allComments'])
             state['allComments'] = action.listOfComments;
             return state;
         case "commentsOnPost":

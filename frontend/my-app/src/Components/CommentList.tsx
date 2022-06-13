@@ -22,17 +22,20 @@ export default function AlignItemsList() {
     const dispatch = useDispatch();
     const {getAllComments} = bindActionCreators(actionCreators, dispatch) 
     const state = useSelector((state: State) => state.allComments)
-      
+    let comments: commentType[] = [];
+    const [list, setList] = useState<commentType[]>()
 
     useEffect( () => {
-    getAllComments()
+    
+    setList(state)
 
       }, [state]);
-      console.log(state)
+
+    
       
     return (
         <div>
-            {state ? state.map((comment) => 
+            {list ? list.map((comment) => 
             <Comment id={comment.id} author={comment.author} comment={comment.comment} commentId={comment.CommentId} />
             ): <p>Inga Kommentera</p>}
         </div>

@@ -23,14 +23,20 @@ export default function AlignItemsList(commentData: postRespond) {
     
     const [reply, setReply] = useState(false);
 
-    const replyChange = () =>{
-        setReply(!reply)
-    }
+    
 
 
     const dispatch = useDispatch();
-    const {getAllComments} = bindActionCreators(actionCreators, dispatch) 
+    const {getComments} = bindActionCreators(actionCreators, dispatch) 
     const state = useSelector((state: State) => state.allComments)
+
+    const replyChange = () =>{
+        if(reply){
+            getComments(commentData.id)
+        }
+        setReply(!reply)
+      
+    }
       const styles = {
         border: '1px solid rgba(0, 0, 0,0.5 )', 
         width: "350px",
@@ -38,6 +44,11 @@ export default function AlignItemsList(commentData: postRespond) {
         fontWeight: 600,
         alignItems: 'flex-start'
       };
+
+      const styles2 = {
+        marginLeft: "50px",
+        width: "80%" 
+    };
 
   return (
     <div>
@@ -55,11 +66,13 @@ export default function AlignItemsList(commentData: postRespond) {
         </Comment.Content>
   </Comment>
   </Comment.Group>
-  </div>
+  </div >
+  <div style={styles2}>
   {reply &&
     <><ReplyComment id={commentData.id} />
     <Input cId={commentData.id} cBId={commentData.commentId} /></>
     }
+</div>
 </div>
 );
 }

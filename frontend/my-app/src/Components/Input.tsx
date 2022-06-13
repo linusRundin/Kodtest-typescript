@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { actionCreators, State } from '../state';
 import { useState } from 'react';
 import { Button } from '@mui/material';
+import { getComments } from '../state/action-creators';
 
 const blue = {
   100: '#DAECFF',
@@ -150,7 +151,7 @@ export default function Input(commentData: postRespond) {
       <Button onClick= {() => {
 
         addComment(name, text, commentData.cBId, commentData.cId); 
-        getAllComments();
+        getComments(commentData.cId);
 
         } }>Skicka</Button>
     </div>

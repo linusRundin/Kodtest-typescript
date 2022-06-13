@@ -10,7 +10,13 @@ import { actionCreators, State } from './state';
 
 
 function App() {
-    
+  const dispatch = useDispatch();
+  const {getAllComments} = bindActionCreators(actionCreators, dispatch) 
+  const state = useSelector((state: State) => state.allComments)
+  console.log(state)
+  getAllComments()
+  console.log(state)
+
   return (
     <div className="App" style={{
       display: 'flex',

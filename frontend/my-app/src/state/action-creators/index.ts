@@ -24,8 +24,18 @@ export const getAllComments = () => {
     })}
 }
 
-export const getComments = (id: Number) => {
+
+export const getComments = (id: Number | null) => {
     console.log("HERE")
+    if(id === null) {
+    return async (dispatch: Dispatch<allCommentsActionType>) => {
+        const res = await axios.get(`http://localhost:8080/comment/getAllComments`, 
+        {})
+            dispatch( {
+                type: "listOfComments",
+                listOfComments: res.data
+    })}
+    } else {
     return async (dispatch: Dispatch<commentsActionType>) => {
         const res = await axios.get(`http://localhost:8080/comment/getComment/` + id, 
         {})
@@ -33,6 +43,7 @@ export const getComments = (id: Number) => {
                 type: "commentsOnPost",
                 comments: res.data
     })}
+}
 }
 
 

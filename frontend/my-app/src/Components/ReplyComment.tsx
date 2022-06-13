@@ -26,7 +26,7 @@ export default function AlignItemsList(commentData: postRespond) {
       };
     const dispatch = useDispatch();
     const {getComments} = bindActionCreators(actionCreators, dispatch) 
-    const state = useSelector((state: State) => state.comments)
+    const state = useSelector((state: State) => state)
     const styles = {
         marginLeft: "50px",
         width: "80%" 
@@ -39,7 +39,7 @@ export default function AlignItemsList(commentData: postRespond) {
     console.log("USEEFFECT")
 
     getComments(commentData.id)
-    setList(state)
+    setList(state['comments'])
 
       }, [state]);
 
@@ -48,7 +48,7 @@ export default function AlignItemsList(commentData: postRespond) {
 
       return (
         <div >
-          {list ? list.map((comment) => 
+          {state['comments'] ? state['comments'].map((comment) => 
             <Comment id={comment.id} author={comment.author} comment={comment.comment} commentId={comment.CommentId} />
             ): <p>Inga Kommentarer</p>}
         </div>

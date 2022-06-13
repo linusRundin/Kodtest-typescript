@@ -1,30 +1,7 @@
-const  Sequelize = require("sequelize");
 
-
-const db2 = new Sequelize({
-    dialect: 'sqlite',
-    storage: 'path/to/database.sqlite'
-});
-
-
-const Comment = db2.define('Comment', {
-    author: String,
-    comment: String,
-});
-
-const CommentBoard = db2.define('CommentBoard', {
-    boardName: String
-});
-
-db2.sync();
-
-CommentBoard.create({
-    boardName: "CommentBoard"
-}).then(
-    console.log("Ready")
-);
-
-
+const db2 = require("./database")
+const CommentBoard = require("./CommentBoard")
+const Comment = require("./Comment")
 
 Comment.associate = models => {
     Comment.belongsTo(Comment, {
@@ -34,7 +11,6 @@ Comment.associate = models => {
 });
 }
 
-CommentBoard.hasMany(Comment);
 
 Comment.associate = models => {
     Comment.belongsTo(CommentBoard, {
@@ -45,10 +21,30 @@ Comment.associate = models => {
 }
 
 Comment.hasMany(Comment)
+CommentBoard.hasMany(Comment);
 
+db2.sync({force:true})
 
+const getAllComments = async (req, res) => {
+    const boardExist = await CommentBoard.findAll({ where : {id: 1}} );
+    if (boardExist !== []){
+        CommentBoard.create({
+            boardName: "CommentBoard"
+        }).then(
+            console.log("Ready")
+        );
+        CommentBoard.sync()
+    }
 
-exports.createComment = async (req, res) => {
+    const allComments = await CommentBoard.findAll({ where : {id: 1} ,
+        include: [Comment]
+    });
+
+    
+    return res.send(allComments[0].Comments)
+}
+
+const createComment = async (req, res) => {
     const { name, text, commentId, commentBoardId} = req.body;
     let newComment = await Comment.create({
         author: name,
@@ -60,17 +56,8 @@ exports.createComment = async (req, res) => {
     return res.send(newComment);
 }
 
-exports.getAllComments = async (req, res) => {
-    const allComments = await CommentBoard.findAll({ where : {id: 1} ,
-        include: [Comment]
-    });
-    return res.send(allComments[0].Comments)
-}
-
-exports.getComment = async (req, res) => {
-    console.log(req.params)
+const getComment = async (req, res) => {
     const commentId = req.params.id;
-    console.log(commentId);
     const allComments = await Comment.findAll({ where : {id: commentId} ,
         include: [Comment]
     });
@@ -82,7 +69,7 @@ exports.getComment = async (req, res) => {
     
 }
 
-exports.deleteAllComments = async (req, res) => {
+const deleteAllComments = async (req, res) => {
     await Comment.destroy({
         truncate: true
     });
@@ -90,14 +77,4 @@ exports.deleteAllComments = async (req, res) => {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-  
+module.exports = {getAllComments, getComment, deleteAllComments, createComment}

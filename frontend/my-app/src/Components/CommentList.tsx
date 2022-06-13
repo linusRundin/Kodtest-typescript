@@ -26,16 +26,15 @@ export default function AlignItemsList() {
     const [list, setList] = useState<commentType[]>()
 
     useEffect( () => {
-    
     setList(state)
 
       }, [state]);
 
-    
+    console.log(state)
       
     return (
         <div>
-            {list ? list.map((comment) => 
+            {state ? state.map((comment) => 
             <Comment id={comment.id} author={comment.author} comment={comment.comment} commentId={comment.CommentId} />
             ): <p>Inga Kommentera</p>}
         </div>

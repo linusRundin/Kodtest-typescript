@@ -38,10 +38,10 @@ export default function AlignItemsList(commentData: postRespond) {
     useEffect( () => {
     console.log("USEEFFECT")
 
-    getComments(commentData.id)
-    setList(state['comments'])
+   // getComments(commentData.id)
 
-      }, [state]);
+
+      }, []);
 
       console.log("REPLY")
       console.log(state)

@@ -1,5 +1,6 @@
 
 import { allCommentsActionType, commentsActionType } from "../actions/index"
+import { createAction, createReducer } from '@reduxjs/toolkit'
 
 type commentType = {
     id: Number,
@@ -14,25 +15,40 @@ type commentListType = {
     comments: commentType[],
   };
   
- const initalState = {
-    allComments: [],
-    comments: [],
- }
- const emptyList: commentType[] = []
 
+ const emptyList: commentType[] = []
+ const initialState = {
+    allComments: emptyList,
+    comments: emptyList,
+ }
  type Action = allCommentsActionType | commentsActionType;
 
-const reducer = (state: commentListType = initalState, action: Action ): commentListType => {
+const listOfComments = createAction<Array<commentType>>('listOfComments')
+const comments = createAction<Array<commentType>>('commentsOnPost')
+
+ const improvedReducer = createReducer(initialState, (builder) => {
+    builder
+      .addCase(listOfComments, (state, action) => {
+          console.log("HÄR E JAG")
+          
+          console.log(action.payload)
+        state['allComments'] = action.payload
+      })
+      .addCase(comments, (state, action) => {
+        state['comments'] = action.payload;
+      })
+      .addDefaultCase((state, action) => state)
+  })
+
+const reducer = (state: commentListType = initialState, action: Action ): commentListType => {
 
     switch (action.type){
         case "listOfComments":
             console.log("är i listofcomments")
             console.log(state['allComments'])
-            state['allComments'] = action.listOfComments;
-            return state;
+            return { ...state, allComments: action.listOfComments }
         case "commentsOnPost":
-            state['comments'] = action.comments;
-            return state
+            return { ...state, comments: action.comments }
         default:
             return state
     }

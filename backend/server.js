@@ -46,6 +46,15 @@ const getAllComments = async (req, res) => {
 
 const createComment = async (req, res) => {
     const { name, text, commentId, commentBoardId} = req.body;
+    const boardExist = await CommentBoard.findAll({ where : {id: 1}} );
+    if (boardExist !== []){
+        CommentBoard.create({
+            boardName: "CommentBoard"
+        }).then(
+            console.log("Ready")
+        );
+        CommentBoard.sync()
+    }
     let newComment = await Comment.create({
         author: name,
         comment: text,

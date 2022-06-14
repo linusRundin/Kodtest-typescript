@@ -7,6 +7,10 @@ import { List, ListItem, ListItemText } from '@mui/material';
 import { useState, useEffect, useCallback } from 'react';
 import ReplyComment from "./ReplyComment"
 import Comment from "./Comment"
+import { createAction } from '@reduxjs/toolkit';
+import { addComment, getAllComments, getComments, mystate } from "../state/commentSlice";
+import { AppDispatch } from '../state';
+import { current } from '@reduxjs/toolkit'
 
 
 export default function AlignItemsList() {
@@ -19,28 +23,33 @@ export default function AlignItemsList() {
         createdAt: string,
         updatedAt: String;
       };
-    const dispatch = useDispatch();
-    const {getAllComments} = bindActionCreators(actionCreators, dispatch) 
-    const state = useSelector((state: State) => state.allComments)
-    let comments: commentType[] = [];
-    const [list, setList] = useState<commentType[]>()
+    const dispatch: AppDispatch  = useDispatch();
 
-    useEffect( () => {
-    setList(state)
-
-      }, [state]);
-
+    const state = useSelector(mystate)
     console.log(state)
+    let comments: commentType[] = [];
+    let [list, setList] = useState<commentType[]>()
+    const listOfComments = createAction<Array<commentType>>('listOfComments')
+
+    
+    useEffect(() => {
+        dispatch(getAllComments());
+    
+      }, [])
+
+    
+    console.log("IKOMMENTLIST")
+    
+
       
     return (
         <div>
-            {state ? state.map((comment) => 
+            {state['allComments'] ? state['allComments'].map((comment) => 
             <Comment id={comment.id} author={comment.author} comment={comment.comment} commentId={comment.CommentId} />
             ): <p>Inga Kommentera</p>}
         </div>
     );
 
       
-      
-}
+}   
 

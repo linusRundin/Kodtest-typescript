@@ -2,6 +2,15 @@ import { Dispatch } from "react"
 import { allCommentsActionType, commentActionType, commentsActionType } from "../actions/index"
 import axios from 'axios'
 
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { useDispatch } from "react-redux"
+
+interface Post {
+    id: number
+    name: string
+  }
+  
+
 export const addComment = (author: String, text: String, cBId: Number | null, cId: Number | null) => {
     console.log("YOOO")
     return async (dispatch: Dispatch<commentActionType>) => {
@@ -15,13 +24,16 @@ export const addComment = (author: String, text: String, cBId: Number | null, cI
 
 export const getAllComments = () => {
     console.log("YOOO")
+
     return async (dispatch: Dispatch<allCommentsActionType>) => {
-        const res = await axios.get(`http://localhost:8080/comment/getAllComments`, 
-        {})
-            dispatch( {
-                type: "listOfComments",
-                listOfComments: res.data
-    })}
+        const res = await axios.get(`http://localhost:8080/comment/getAllComments`, {})
+            dispatch( {type: "listOfComments", listOfComments: res.data })}
+}
+export async function getAllCommentsImproved() {
+    console.log("YOOO")
+    const res = await axios.get(`http://localhost:8080/comment/getAllComments`, {})
+
+    return res.data
 }
 
 
@@ -31,6 +43,7 @@ export const getComments = (id: Number | null) => {
     return async (dispatch: Dispatch<allCommentsActionType>) => {
         const res = await axios.get(`http://localhost:8080/comment/getAllComments`, 
         {})
+        console.log("GETCOMMENTS", res.data)
             dispatch( {
                 type: "listOfComments",
                 listOfComments: res.data

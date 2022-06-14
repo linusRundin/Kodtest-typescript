@@ -5,10 +5,13 @@ import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled'
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators, State } from '../state';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Button } from '@mui/material';
-import { getComments } from '../state/action-creators';
-
+import { allCommentsActionType, commentsActionType } from "../state/actions/index"
+import axios from 'axios';
+import {getAllCommentsImproved} from "../state/action-creators"
+import { addComment, getAllComments, getComments } from "../state/commentSlice";
+import { AppDispatch } from '../state';
 const blue = {
   100: '#DAECFF',
   200: '#80BFFF',
@@ -138,21 +141,41 @@ type postRespond = {
 };
 
 export default function Input(commentData: postRespond) {
-  const dispatch = useDispatch();
-  const {addComment, getAllComments} = bindActionCreators(actionCreators, dispatch) 
-
+  const dispatch: AppDispatch = useDispatch();
+  const state = useSelector((state: State) => state.allComments)
+  
+  
   const [name, setName] = useState('')
   const [text, setText] = useState('')
+
+  const sendComment = () => {
+    dispatch(getAllComments());
+  };
+
+  const updateList = () => {
+   addComment(name, text, commentData.cBId, commentData.cId)
+  };
 
   return (
     <div>
       <NameInput onChange={event => setName(event.target.value)} aria-label="Demo input" placeholder="Namn"></NameInput>
       <CommentInput onChange={event => setText(event.target.value)} aria-label="Demo input" multiline placeholder="Kommentera här!" />
-      <Button onClick= {() => {
-
-        addComment(name, text, commentData.cBId, commentData.cId); 
-        getComments(commentData.cId);
-
+      <Button onClick= {async () => {
+        console.group("INUTI")
+        sendComment()
+        updateList()
+        
+         
+        
+        
+    
+        
+        
+        
+        
+  
+        console.log(state)
+      
         } }>Skicka</Button>
     </div>
     

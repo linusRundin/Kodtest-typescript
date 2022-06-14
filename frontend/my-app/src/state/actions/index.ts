@@ -7,8 +7,8 @@ type commentType = {
     updatedAt: String;
   };
 interface commentAction {
-    type: "comment",
-    webCode: String
+    type: "addCommentInState",
+    webCode: Number
 }
 
 interface allCommentAction {
@@ -18,7 +18,8 @@ interface allCommentAction {
 
 interface commentsAction {
     type: "commentsOnPost",
-    comments: Array<commentType>
+    comments: Array<commentType>,
+    id: Number
 }
 
 

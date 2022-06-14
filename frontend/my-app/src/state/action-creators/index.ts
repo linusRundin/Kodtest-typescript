@@ -5,25 +5,21 @@ import axios from 'axios'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { useDispatch } from "react-redux"
 
-interface Post {
-    id: number
-    name: string
-  }
-  
-
 export const addComment = (author: String, text: String, cBId: Number | null, cId: Number | null) => {
     console.log("YOOO")
     return async (dispatch: Dispatch<commentActionType>) => {
         const res = await axios.post(`http://localhost:8080/comment/addComment`, 
         {name: author, text: text, commentBoardId: cBId, commentId: cId})
+        console.log("ADDCOMMENT",res.data)
             dispatch( {
-                type: "comment",
-                webCode: res.data
-    })}
+                type: "addCommentInState",
+                webCode: res.data.id
+        })
+    }
 }
 
 export const getAllComments = () => {
-    console.log("YOOO")
+    console.log("getAllComments")
 
     return async (dispatch: Dispatch<allCommentsActionType>) => {
         const res = await axios.get(`http://localhost:8080/comment/getAllComments`, {})
@@ -37,26 +33,25 @@ export async function getAllCommentsImproved() {
 }
 
 
-export const getComments = (id: Number | null) => {
+export const getComments = (id: Number) => {
     console.log("HERE")
-    if(id === null) {
-    return async (dispatch: Dispatch<allCommentsActionType>) => {
-        const res = await axios.get(`http://localhost:8080/comment/getAllComments`, 
-        {})
-        console.log("GETCOMMENTS", res.data)
-            dispatch( {
-                type: "listOfComments",
-                listOfComments: res.data
-    })}
-    } else {
     return async (dispatch: Dispatch<commentsActionType>) => {
+        console.log("IDDDD", id)
         const res = await axios.get(`http://localhost:8080/comment/getComment/` + id, 
         {})
+        console.log(res.data)
+        let cId = 0;
+
+        if(res.data.length !== 0){
+            const object = res.data[0]
+            cId = object['CommentId']
+        }
             dispatch( {
                 type: "commentsOnPost",
-                comments: res.data
+                comments: res.data,
+                id: cId
     })}
 }
-}
+
 
 

@@ -1,4 +1,4 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
+import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SliceActions } from "@reduxjs/toolkit/dist/query/core/buildSlice";
 import { allCommentsActionType, commentsActionType } from "./actions";
 import { useDispatch } from "react-redux";
@@ -28,7 +28,7 @@ type commentListType = {
  const initialState = {
     allComments: emptyList,
     comments: emptyList,
- }
+ } as commentState
  type Action = allCommentsActionType | commentsActionType;
 
 type sliceAction = {
@@ -41,17 +41,24 @@ const dispatch2 = useDispatch;
 const init = {
     allComments: emptyList,
     comments: emptyList
-} as commentListType;
+} as commentState;
+
+interface commentState {
+  allComments: commentType[],
+  comments: commentType[],
+}
+
+interface comment {
+  allComments: commentType[]
+}
 
 export const todoSlide = createSlice({
   name: "comments",
   initialState,
   reducers: {
-    allComments: (state, action) => {
-    console.log(action.payload)
-      state = {...state, allComments: action.payload};
-
-
+    allComments: (state, action: PayloadAction<comment>) => {
+    console.log("ACTION", action.payload.allComments)
+      state = {...state, allComments: action.payload.allComments};
     },
     comments: (state, action) => {
         state = {...state, comments: action.payload};
@@ -63,7 +70,7 @@ export const getAllComments = () => async (dispatch: Dispatch) => {
     try {
         // console.log(data);
         const response = await axios.get(API_URL1);
-        console.log("VADHÄNDER JAO", response);
+        console.log("VADHÄNDER JAO", response.data);
         dispatch(allComments(response.data));
       } catch (err) {
         
@@ -73,8 +80,9 @@ export const getAllComments = () => async (dispatch: Dispatch) => {
   export const addComment = (author: String, text: String, cBId: Number | null, cId: Number | null) => async (dispatch: Dispatch) => {
     try {
       // console.log(data);
+      console.log("I ADD COMMENTA")
       const response = await axios.post(API_URL3, {name: author, text: text, commentBoardId: cBId, commentId: cId});
-      // console.log(response);
+      console.log(response);
      
     } catch (err) {
       

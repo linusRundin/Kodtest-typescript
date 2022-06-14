@@ -31,10 +31,11 @@ export default function AlignItemsList(commentData: postRespond) {
     const state = useSelector((state: State) => state.allComments)
 
     const replyChange = () =>{
+      setReply(!reply)
         if(reply){
-            getComments(commentData.id)
+         
         }
-        setReply(!reply)
+        
       
     }
       const styles = {

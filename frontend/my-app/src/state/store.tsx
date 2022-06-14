@@ -17,25 +17,43 @@ type commentListType = {
   };
 
 const emptyList: commentType[] = []
+interface commentState {
+    allComments: commentType[],
+    comments: commentType[],
+  }
 
-const initalState = {
+  type commentObjectType = {
+    id: number,
+    comments2: commentType[]
+  }
+
+ type state = {
+    allComments: commentType[],
+    comments: commentObjectType[]
+  }
+const commentList: commentObjectType[] = []
+
+  const initalState = {
     allComments: emptyList,
-    comments: emptyList,
- }
+    comments: commentList,
+ } as state
 
- /*
+ 
+
 export const store = configureStore({
     reducer: reducers,
     preloadedState: initalState,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware()
 })
-*/
 
+/*
 export const store = configureStore({
     reducer: {
         comments: slice
-    }
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
 })
+*/
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>

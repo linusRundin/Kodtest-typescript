@@ -9,8 +9,6 @@ import { useState, useCallback } from 'react';
 import { Button } from '@mui/material';
 import { allCommentsActionType, commentsActionType } from "../state/actions/index"
 import axios from 'axios';
-import {getAllCommentsImproved} from "../state/action-creators"
-import { addComment, getAllComments, getComments } from "../state/commentSlice";
 import { AppDispatch } from '../state';
 const blue = {
   100: '#DAECFF',
@@ -143,16 +141,23 @@ type postRespond = {
 export default function Input(commentData: postRespond) {
   const dispatch: AppDispatch = useDispatch();
   const state = useSelector((state: State) => state.allComments)
+  const {getAllComments, addComment, getComments} = bindActionCreators(actionCreators, dispatch) 
   
   
   const [name, setName] = useState('')
   const [text, setText] = useState('')
 
-  const sendComment = () => {
-    dispatch(getAllComments());
+  const updateList = async () => {
+    if (commentData.cId === null){
+       getAllComments()
+    }else {
+      console.log("HÄR ÄR JSAG")
+      getComments(commentData.cId)
+
+    }
   };
 
-  const updateList = () => {
+  const sendComment = async () => {
    addComment(name, text, commentData.cBId, commentData.cId)
   };
 
@@ -161,21 +166,12 @@ export default function Input(commentData: postRespond) {
       <NameInput onChange={event => setName(event.target.value)} aria-label="Demo input" placeholder="Namn"></NameInput>
       <CommentInput onChange={event => setText(event.target.value)} aria-label="Demo input" multiline placeholder="Kommentera här!" />
       <Button onClick= {async () => {
-        console.group("INUTI")
+        console.log("INUTI")
+        console.log("send")
         sendComment()
+        console.log("Update")
         updateList()
         
-         
-        
-        
-    
-        
-        
-        
-        
-  
-        console.log(state)
-      
         } }>Skicka</Button>
     </div>
     

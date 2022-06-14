@@ -14,6 +14,7 @@ function App() {
   const {getAllComments} = bindActionCreators(actionCreators, dispatch) 
   const state = useSelector((state: State) => state)
   console.log("FÖRST")
+  console.log(state)
  
 
   return (

@@ -26,26 +26,28 @@ export default function AlignItemsList() {
     const dispatch: AppDispatch  = useDispatch();
 
     const state = useSelector(mystate)
-    console.log(state)
+    const {getAllComments} = bindActionCreators(actionCreators, dispatch) 
     let comments: commentType[] = [];
     let [list, setList] = useState<commentType[]>()
     const listOfComments = createAction<Array<commentType>>('listOfComments')
 
+
     
     useEffect(() => {
-        dispatch(getAllComments());
+        getAllComments()
     
       }, [])
 
     
     console.log("IKOMMENTLIST")
+    console.log(state)
     
 
       
     return (
         <div>
             {state['allComments'] ? state['allComments'].map((comment) => 
-            <Comment id={comment.id} author={comment.author} comment={comment.comment} commentId={comment.CommentId} />
+            <Comment key={comment.id.toString()} id={comment.id} author={comment.author} comment={comment.comment} commentId={comment.CommentId} />
             ): <p>Inga Kommentera</p>}
         </div>
     );

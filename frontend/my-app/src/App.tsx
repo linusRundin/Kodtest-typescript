@@ -1,8 +1,14 @@
 import './App.css';
 import Input from "./Components/Input"
 import CommentList from "./Components/CommentList"
+import { useSelector } from 'react-redux';
+import {State} from "./state"
+import Header from "./Components/Header"
 
 function App() {
+
+  const state = useSelector((state: State) => state)
+  console.log(state)
 
   return (
     <div className="App" style={{
@@ -11,6 +17,7 @@ function App() {
       height: '100vh',
     }}>
       <div className='comments'>
+        <Header/>
         <CommentList/>
         <Input cBId={1} cId={null} />
       </div>

@@ -16,6 +16,7 @@ type commentType = {
     comment: String,
     CommentId: Number,
     createdAt: string,
+    CommentBoardId: Number,
     updatedAt: String;
   };
 type commentListType = {
@@ -81,5 +82,5 @@ export const getAllComments = () => async (dispatch: Dispatch) => {
   };
 
 export const { allComments, comments } = todoSlide.actions;
-export const mystate = (state: commentListType) => state;
+//export const mystate = (state: commentListType) => state;
 export default todoSlide.reducer;

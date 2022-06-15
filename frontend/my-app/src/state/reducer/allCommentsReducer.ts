@@ -10,6 +10,7 @@ type commentType = {
     author: String,
     comment: String,
     CommentId: Number,
+    CommentBoardId: Number,
     createdAt: string,
     updatedAt: String;
   };

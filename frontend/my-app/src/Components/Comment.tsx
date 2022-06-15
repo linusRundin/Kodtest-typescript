@@ -14,7 +14,7 @@ type postRespond = {
     id: Number,
     author: String,
     comment: String,
-    commentId: Number
+    commentId: Number,
   };
 
 export default function AlignItemsList(commentData: postRespond) {
@@ -41,7 +41,7 @@ export default function AlignItemsList(commentData: postRespond) {
         marginLeft: "50px",
         width: "80%" 
     };
-
+  
   return (
     <div>
     <div style={styles}>
@@ -62,7 +62,7 @@ export default function AlignItemsList(commentData: postRespond) {
   <div style={styles2}>
   {reply &&
     <><ReplyComment id={commentData.id} />
-    <Input cId={commentData.id} cBId={commentData.commentId} /></>
+    <Input cId={commentData.id} cBId={null} /></>
     }
 </div>
 </div>

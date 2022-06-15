@@ -37,7 +37,7 @@ export default function AlignItemsList(commentData: postRespond) {
       return (
         <div >
           { state.comments2 ? state.comments2.map((comment) => 
-            <Comment key={comment.id.toString()} id={comment.id} author={comment.author} comment={comment.comment} commentId={comment.CommentId} />
+            <Comment key={comment.id.toString()} id={comment.id} author={comment.author} comment={comment.comment} commentId={comment.CommentId}  />
             ): <p>Inga Kommentarer</p>}
         </div>
       );

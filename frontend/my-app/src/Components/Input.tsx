@@ -1,15 +1,12 @@
 import * as React from 'react';
 import InputUnstyled, { InputUnstyledProps } from '@mui/base/InputUnstyled';
 import { styled } from '@mui/system';
-import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actionCreators, State } from '../state';
-import { useState, useCallback } from 'react';
+import { actionCreators, AppDispatch } from '../state';
+import { useState } from 'react';
 import { Button } from '@mui/material';
-import { allCommentsActionType, commentsActionType } from "../state/actions/index"
-import axios from 'axios';
-import { AppDispatch } from '../state';
+
 const blue = {
   100: '#DAECFF',
   200: '#80BFFF',
@@ -56,37 +53,6 @@ const StyledTextareaElement = styled('textarea')(
   `,
 );
   
-  const CustomButton = styled(ButtonUnstyled)`
-    font-family: IBM Plex Sans, sans-serif;
-    font-weight: bold;
-    font-size: 0.875rem;
-    background-color: ${blue[500]};
-    padding: 12px 24px;
-    border-radius: 8px;
-    color: white;
-    transition: all 150ms ease;
-    cursor: pointer;
-    border: none;
-  
-    &:hover {
-      background-color: ${blue[600]};
-    }
-  
-    &.${buttonUnstyledClasses.active} {
-      background-color: ${blue[700]};
-    }
-  
-    &.${buttonUnstyledClasses.focusVisible} {
-      box-shadow: 0 4px 20px 0 rgba(61, 71, 82, 0.1), 0 0 0 5px rgba(0, 127, 255, 0.5);
-      outline: none;
-    }
-  
-    &.${buttonUnstyledClasses.disabled} {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-  `;
-
 const StyledInputElement = styled('input')(
   ({ theme }) => `
   width: 320px;
@@ -140,7 +106,6 @@ type postRespond = {
 
 export default function Input(commentData: postRespond) {
   const dispatch: AppDispatch = useDispatch();
-  const state = useSelector((state: State) => state.allComments)
   const {getAllComments, addComment, getComments} = bindActionCreators(actionCreators, dispatch) 
   
   
@@ -151,7 +116,6 @@ export default function Input(commentData: postRespond) {
     if (commentData.cId === null){
        getAllComments()
     }else {
-      console.log("HÄR ÄR JSAG")
       getComments(commentData.cId)
 
     }
@@ -166,10 +130,7 @@ export default function Input(commentData: postRespond) {
       <NameInput onChange={event => setName(event.target.value)} aria-label="Demo input" placeholder="Namn"></NameInput>
       <CommentInput onChange={event => setText(event.target.value)} aria-label="Demo input" multiline placeholder="Kommentera här!" />
       <Button onClick= {async () => {
-        console.log("INUTI")
-        console.log("send")
         sendComment()
-        console.log("Update")
         updateList()
         
         } }>Skicka</Button>

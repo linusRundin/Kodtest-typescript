@@ -1,21 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Comment from "./Components/Comment"
 import Input from "./Components/Input"
 import CommentList from "./Components/CommentList"
-import { useDispatch, useSelector } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionCreators, State } from './state';
-
 
 function App() {
-  const dispatch = useDispatch();
-  const {getAllComments} = bindActionCreators(actionCreators, dispatch) 
-  const state = useSelector((state: State) => state)
-  console.log("FÖRST")
-  console.log(state)
- 
 
   return (
     <div className="App" style={{

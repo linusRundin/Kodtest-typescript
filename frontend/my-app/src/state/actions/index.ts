@@ -22,8 +22,6 @@ interface commentsAction {
     id: Number
 }
 
-
-
 export type commentActionType = commentAction;
 export type allCommentsActionType = allCommentAction;
 export type commentsActionType = commentsAction;

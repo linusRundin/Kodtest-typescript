@@ -1,8 +1,7 @@
 
 import { configureStore } from '@reduxjs/toolkit'
 import reducers from "./reducer/index";
-import slice from "./commentSlice"
-import thunk from "redux-thunk"
+
 type commentType = {
     id: Number,
     author: String,
@@ -11,16 +10,8 @@ type commentType = {
     createdAt: string,
     updatedAt: String;
   };
-type commentListType = {
-    allComments: commentType[],
-    comments: commentType[],
-  };
 
 const emptyList: commentType[] = []
-interface commentState {
-    allComments: commentType[],
-    comments: commentType[],
-  }
 
   type commentObjectType = {
     id: number,
@@ -38,22 +29,12 @@ const commentList: commentObjectType[] = []
     comments: commentList,
  } as state
 
- 
 
 export const store = configureStore({
     reducer: reducers,
     preloadedState: initalState,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware()
 })
-
-/*
-export const store = configureStore({
-    reducer: {
-        comments: slice
-    },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
-})
-*/
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>

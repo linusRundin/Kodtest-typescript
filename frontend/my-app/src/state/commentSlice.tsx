@@ -1,12 +1,8 @@
-import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { SliceActions } from "@reduxjs/toolkit/dist/query/core/buildSlice";
-import { allCommentsActionType, commentsActionType } from "./actions";
-import { useDispatch } from "react-redux";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {Dispatch} from "redux"
 
-
-
 const axios = require("axios");
+
 const API_URL1 = "http://localhost:8080/comment/getAllComments";
 const API_URL2 = "http://localhost:8080/comment/getComment";
 const API_URL3 = "http://localhost:8080/comment/addComment";
@@ -29,19 +25,6 @@ type commentListType = {
     allComments: emptyList,
     comments: emptyList,
  } as commentState
- type Action = allCommentsActionType | commentsActionType;
-
-type sliceAction = {
-    payload: commentType[]
-}
-const listOfComments = createAction<Array<commentType>>('listOfComments')
-const comments22 = createAction<Array<commentType>>('commentsOnPost')
-const dispatch2 = useDispatch;
-
-const init = {
-    allComments: emptyList,
-    comments: emptyList
-} as commentState;
 
 interface commentState {
   allComments: commentType[],
@@ -79,10 +62,7 @@ export const getAllComments = () => async (dispatch: Dispatch) => {
   
   export const addComment = (author: String, text: String, cBId: Number | null, cId: Number | null) => async (dispatch: Dispatch) => {
     try {
-      // console.log(data);
-      console.log("I ADD COMMENTA")
       const response = await axios.post(API_URL3, {name: author, text: text, commentBoardId: cBId, commentId: cId});
-      console.log(response);
      
     } catch (err) {
       

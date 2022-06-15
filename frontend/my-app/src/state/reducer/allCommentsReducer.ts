@@ -1,3 +1,6 @@
+/**
+ * This file contains the reducer logic of the redux implementation
+ */
 
 import { allCommentsActionType, commentsActionType, commentActionType  } from "../actions/index"
 import produce from 'immer'
@@ -10,7 +13,6 @@ type commentType = {
     createdAt: string,
     updatedAt: String;
   };
-
 
  const emptyList: commentType[] = []
  

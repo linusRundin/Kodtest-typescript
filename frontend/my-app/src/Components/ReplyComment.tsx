@@ -1,3 +1,11 @@
+/**
+ * This file is the list that contains comments that are connected
+ * to other comments.
+ * What differs this component from CommentList is that this component
+ * runs different functions and is placed with a margin to indicate that
+ * it is not the original list of comments 
+ */
+
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';

@@ -1,7 +1,10 @@
-
+/**
+ * This file contains all the server functionality
+ */
 const db2 = require("./database")
 const CommentBoard = require("./CommentBoard")
 const Comment = require("./Comment")
+
 
 Comment.associate = models => {
     Comment.belongsTo(Comment, {
@@ -23,8 +26,18 @@ Comment.associate = models => {
 Comment.hasMany(Comment)
 CommentBoard.hasMany(Comment);
 
+/**
+ * Drops all tables and recreates them
+ */
 db2.sync({force:true})
 
+
+/**
+ * This function returns all comments posted on the main page
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const getAllComments = async (req, res) => {
     const boardExist = await CommentBoard.findAll({ where : {id: 1}} );
     if (boardExist !== []){
@@ -44,6 +57,12 @@ const getAllComments = async (req, res) => {
     return res.send(allComments[0].Comments)
 }
 
+/**
+ * This function adds a comment.
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const createComment = async (req, res) => {
     const { name, text, commentId, commentBoardId} = req.body;
     const boardExist = await CommentBoard.findAll({ where : {id: 1}} );
@@ -65,6 +84,13 @@ const createComment = async (req, res) => {
     return res.send(newComment);
 }
 
+/**
+ * This function returns the comments that
+ *  are connected to the specifeid id
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const getComment = async (req, res) => {
     const commentId = req.params.id;
     const allComments = await Comment.findAll({ where : {id: commentId} ,
@@ -78,6 +104,13 @@ const getComment = async (req, res) => {
     
 }
 
+/**
+ * This is a function for deleting everything in the table Comment
+ * It is not used.
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const deleteAllComments = async (req, res) => {
     await Comment.destroy({
         truncate: true

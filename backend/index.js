@@ -1,3 +1,8 @@
+/**
+ * This file is used to setup a 
+ * local hosting of the server
+ */
+
 const express = require("express");
 const cors = require("cors");
 const routes = require("./routes")
@@ -7,6 +12,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+/**
+ * This routes the different functions to the URL
+ */
 app.use("/comment", routes);
 
 app.get('/', (req, res) => {

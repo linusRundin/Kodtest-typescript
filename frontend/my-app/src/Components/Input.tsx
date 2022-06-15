@@ -1,3 +1,9 @@
+/**
+ * This file contains the Input component
+ * The input component has two inputs, one for name and one for text,
+ * it also contains an send button that uploads the content to the database.
+ */
+
 import * as React from 'react';
 import InputUnstyled, { InputUnstyledProps } from '@mui/base/InputUnstyled';
 import { styled } from '@mui/system';

@@ -1,3 +1,7 @@
+/**
+ * This file is an alternative to the implementation of the reducer
+ */
+
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {Dispatch} from "redux"
 
@@ -40,7 +44,6 @@ export const todoSlide = createSlice({
   initialState,
   reducers: {
     allComments: (state, action: PayloadAction<comment>) => {
-    console.log("ACTION", action.payload.allComments)
       state = {...state, allComments: action.payload.allComments};
     },
     comments: (state, action) => {
@@ -53,7 +56,6 @@ export const getAllComments = () => async (dispatch: Dispatch) => {
     try {
         // console.log(data);
         const response = await axios.get(API_URL1);
-        console.log("VADHÄNDER JAO", response.data);
         dispatch(allComments(response.data));
       } catch (err) {
         

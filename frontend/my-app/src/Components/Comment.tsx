@@ -1,3 +1,8 @@
+/**
+ * This file contains the Comment component
+ * This component displays a comment with name, text and a reply button
+ */
+
 import { useState, useEffect } from 'react';
 import ReplyComment from "./ReplyComment"
 import Input from "./Input";

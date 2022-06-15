@@ -1,3 +1,7 @@
+/**
+ * This file contains the main list of Comments.
+ */
+
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../state';

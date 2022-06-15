@@ -1,8 +1,11 @@
-const Router = require('express');
+/**
+ * This file routes the functions to the right URL
+ */
+
 const express = require('express')
 const router = express.Router()
 
-const {createComment, getAllComments, getComment, deleteAllComments} = require("./server")
+const {createComment, getAllComments, getComment, deleteAllComments} = require("./serverFunctions")
 
 
 

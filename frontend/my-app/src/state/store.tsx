@@ -1,3 +1,6 @@
+/**
+ * This file contains the store of the redux implementation.
+ */
 
 import { configureStore } from '@reduxjs/toolkit'
 import reducers from "./reducer/index";

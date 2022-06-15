@@ -8,19 +8,19 @@ import Header from "./Components/Header"
 function App() {
 
   const state = useSelector((state: State) => state)
-  console.log(state)
 
   return (
     <div className="App" style={{
       display: 'flex',
       justifyContent: 'center',
       height: '100vh',
-    }}>
-      <div className='comments'>
-        <Header/>
-        <CommentList/>
-        <Input cBId={1} cId={null} />
+      alignContent: 'center'}}>
+      <div>
+      <Header/>
+      <CommentList/>
+      <Input cBId={1} cId={null} />
       </div>
+         
     </div>
   );
 }

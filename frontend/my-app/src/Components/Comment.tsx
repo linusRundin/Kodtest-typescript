@@ -34,7 +34,6 @@ export default function AlignItemsList(commentData: postRespond) {
         width: "350px",
         backgroundColor: 'lightblue',
         fontWeight: 600,
-        alignItems: 'flex-start'
       };
 
       const styles2 = {

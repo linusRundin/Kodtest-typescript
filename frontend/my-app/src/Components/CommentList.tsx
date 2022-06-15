@@ -26,7 +26,8 @@ export default function AlignItemsList() {
       }, [])
 
     return (
-        <div>
+
+        <div >
             {state['allComments'] ? state['allComments'].map((comment) => 
             <Comment key={comment.id.toString()} id={comment.id} author={comment.author} comment={comment.comment} commentId={comment.CommentId}  />
             ): <p>Inga Kommentera</p>}

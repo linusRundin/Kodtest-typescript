@@ -3,7 +3,8 @@
  */
 const db2 = require("./database")
 const CommentBoard = require("./CommentBoard")
-const Comment = require("./Comment")
+const Comment = require("./Comment");
+const State = require("./State")
 
 
 Comment.associate = models => {
@@ -80,6 +81,7 @@ const createComment = async (req, res) => {
         CommentId: commentId,
         CommentBoardId: commentBoardId
     });
+    Comment.sync()
 
     return res.send(newComment);
 }
@@ -104,6 +106,51 @@ const getComment = async (req, res) => {
     
 }
 
+const saveState = async (req, res) => {
+    const { allComments, comments } = req.body;
+
+    
+    let newState = await State.create({
+        allComments: allComments,
+        comments: comments
+    });
+    console.log(newState)
+    State.sync()
+    res.send(newState)
+}
+
+const getLastState = async (req, res) => {
+    const allComments = await Comment.findAll({where: {CommentBoardId: 1}})
+
+    let sendState = {
+        allComments: [],
+        comments: []
+    }
+    allComments.forEach(comment => {
+        sendState.allComments.push(comment)
+    
+       
+    });
+    const commentsWithComments = await Comment.findAll()
+   for (temp of commentsWithComments){
+    let commentsTemp = {
+        id: temp.id,
+        comments2: []
+    }
+    
+    const allComments = await Comment.findAll({ where : {id: temp.id} ,
+        include: [Comment]
+    });
+    if (allComments[0].Comments.lenght !== 0){
+        commentsTemp.comments2 = allComments[0].Comments
+    } 
+
+    sendState.comments.push(commentsTemp)
+   }
+
+    res.send(sendState)
+}
+
 /**
  * This is a function for deleting everything in the table Comment
  * It is not used.
@@ -119,4 +166,4 @@ const deleteAllComments = async (req, res) => {
 }
 
 
-module.exports = {getAllComments, getComment, deleteAllComments, createComment}
+module.exports = {getAllComments, getComment, deleteAllComments, createComment, saveState, getLastState}

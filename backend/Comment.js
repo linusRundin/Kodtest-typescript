@@ -1,5 +1,4 @@
 const db2 = require("./database")
-const CommentBoard = require("./CommentBoard")
 
 /**
  * The Comment table

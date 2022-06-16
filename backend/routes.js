@@ -5,7 +5,7 @@
 const express = require('express')
 const router = express.Router()
 
-const {createComment, getAllComments, getComment, deleteAllComments} = require("./serverFunctions")
+const {createComment, getAllComments, getComment, deleteAllComments, saveState, getLastState} = require("./serverFunctions")
 
 
 
@@ -16,5 +16,9 @@ router.get("/getAllComments", getAllComments)
 router.get("/getComment/:id", getComment)
 
 router.post("/deleteAllComments", deleteAllComments)
+
+router.post("/saveState", saveState)
+
+router.get("/getLastState", getLastState)
 
 module.exports = router;

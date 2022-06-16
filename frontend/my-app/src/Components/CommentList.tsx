@@ -11,6 +11,7 @@ import {State} from "../state"
 import Comment from "./Comment"
 
 import { AppDispatch } from '../state';
+import { saveState } from '../state/action-creators';
 
 
 
@@ -22,9 +23,8 @@ export default function AlignItemsList() {
     
     useEffect(() => {
         getAllComments()
-    
+        
       }, [])
-
     return (
 
         <div >

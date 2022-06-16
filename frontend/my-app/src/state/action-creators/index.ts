@@ -3,9 +3,23 @@
  */
 
 import { Dispatch } from "react"
-import { allCommentsActionType, commentActionType, commentsActionType } from "../actions/index"
+import { allCommentsActionType, commentActionType, commentsActionType, saveStateActionType, getStateActionType } from "../actions/index"
+import {State} from "../../state"
 import axios from 'axios'
 
+type commentType = {
+    id: Number,
+    author: String,
+    comment: String,
+    CommentId: Number,
+    CommentBoardId: Number,
+    createdAt: string,
+    updatedAt: String;
+  };
+type commentObjectType = {
+    id: Number,
+    comments2: commentType[]
+  }
 
 /**
  * This function adds a comment to the database and updates the state
@@ -22,7 +36,9 @@ export const addComment = (author: String, text: String, cBId: Number | null, cI
         {name: author, text: text, commentBoardId: cBId, commentId: cId})
             dispatch( {
                 type: "addCommentInState",
-                webCode: res.data.id
+                result: res.data,
+                id: res.data.id,
+                commentId: cId
         })
     }
 }
@@ -61,6 +77,32 @@ export const getComments = (id: Number) => {
                 id: cId
     })}
 }
+
+export const saveState = (allComments: commentType[], comments: commentObjectType[]) => {
+    return async (dispatch: Dispatch<saveStateActionType>) => {
+        const res = await axios.post(`http://localhost:8080/comment/saveState`, 
+        {allComments: allComments, comments: comments})
+   
+        console.log("SAVESTATE",allComments, comments)
+            dispatch( {
+                type: "saveState",
+                state: res.data
+        
+    })}
+}
+
+export const getLastState = () => {
+    return async (dispatch: Dispatch<getStateActionType>) => {
+        const res = await axios.get(`http://localhost:8080/comment/getLastState`, 
+        {})
+
+            dispatch( {
+                type: "getState",
+                state: res.data
+        
+    })}
+}
+
 
 
 

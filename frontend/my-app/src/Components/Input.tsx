@@ -7,11 +7,12 @@
 import * as React from 'react';
 import InputUnstyled, { InputUnstyledProps } from '@mui/base/InputUnstyled';
 import { styled } from '@mui/system';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actionCreators, AppDispatch } from '../state';
+import { actionCreators, AppDispatch, State } from '../state';
 import { useState } from 'react';
 import { Button } from '@mui/material';
+import { saveState } from '../state/action-creators';
 
 const blue = {
   100: '#DAECFF',
@@ -112,8 +113,9 @@ type postRespond = {
 
 export default function Input(commentData: postRespond) {
   const dispatch: AppDispatch = useDispatch();
-  const {getAllComments, addComment, getComments} = bindActionCreators(actionCreators, dispatch) 
-  
+  const {getAllComments, addComment, getComments, saveState} = bindActionCreators(actionCreators, dispatch) 
+  let state = useSelector((state: State) => state)
+
   
   const [name, setName] = useState('')
   const [text, setText] = useState('')
@@ -131,6 +133,12 @@ export default function Input(commentData: postRespond) {
    addComment(name, text, commentData.cBId, commentData.cId)
   };
 
+  const saveCuurentState = async () => {
+    saveState(state.allComments, state.comments)
+   };
+
+
+
   return (
     <div>
       <NameInput onChange={event => setName(event.target.value)} aria-label="Demo input" placeholder="Namn"></NameInput>
@@ -138,6 +146,7 @@ export default function Input(commentData: postRespond) {
       <Button onClick= {async () => {
         sendComment()
         updateList()
+        saveCuurentState()
         
         } }>Skicka</Button>
     </div>

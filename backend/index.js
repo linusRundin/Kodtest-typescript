@@ -6,7 +6,9 @@
 const express = require("express");
 const cors = require("cors");
 const routes = require("./routes")
+const dotenv = require('dotenv');
 
+dotenv.config();
 const app = express();
 
 app.use(cors());
@@ -26,7 +28,9 @@ app.use((req, res) => {
   });
 
   // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+  // server.js
+
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });

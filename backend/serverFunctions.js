@@ -4,7 +4,6 @@
 const db2 = require("./database")
 const CommentBoard = require("./CommentBoard")
 const Comment = require("./Comment");
-const State = require("./State")
 
 
 Comment.associate = models => {
@@ -44,17 +43,13 @@ const getAllComments = async (req, res) => {
     if (boardExist !== []){
         CommentBoard.create({
             boardName: "CommentBoard"
-        }).then(
-            console.log("Ready")
-        );
+        })
         CommentBoard.sync()
     }
 
     const allComments = await CommentBoard.findAll({ where : {id: 1} ,
         include: [Comment]
     });
-
-    
     return res.send(allComments[0].Comments)
 }
 
@@ -106,6 +101,11 @@ const getComment = async (req, res) => {
     
 }
 
+/**
+ * This function saves information in the state format.
+ * @param {*} req 
+ * @param {*} res 
+ */
 const saveState = async (req, res) => {
     const { allComments, comments } = req.body;
 
@@ -114,11 +114,15 @@ const saveState = async (req, res) => {
         allComments: allComments,
         comments: comments
     });
-    console.log(newState)
     State.sync()
     res.send(newState)
 }
 
+/**
+ * This function returns all the infromation saved in the state format.
+ * @param {*} req 
+ * @param {*} res 
+ */
 const getLastState = async (req, res) => {
     const allComments = await Comment.findAll({where: {CommentBoardId: 1}})
 

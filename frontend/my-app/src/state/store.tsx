@@ -19,7 +19,7 @@ const emptyList: commentType[] = []
 
   type commentObjectType = {
     id: number,
-    comments2: commentType[]
+    myComments: commentType[]
   }
 
  type state = {

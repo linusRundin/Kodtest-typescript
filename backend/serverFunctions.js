@@ -4,6 +4,7 @@
 const db2 = require("./database")
 const CommentBoard = require("./CommentBoard")
 const Comment = require("./Comment");
+const State = require("./State")
 
 
 Comment.associate = models => {
@@ -139,14 +140,14 @@ const getLastState = async (req, res) => {
    for (temp of commentsWithComments){
     let commentsTemp = {
         id: temp.id,
-        comments2: []
+        myComments: []
     }
     
     const allComments = await Comment.findAll({ where : {id: temp.id} ,
         include: [Comment]
     });
     if (allComments[0].Comments.lenght !== 0){
-        commentsTemp.comments2 = allComments[0].Comments
+        commentsTemp.myComments = allComments[0].Comments
     } 
 
     sendState.comments.push(commentsTemp)

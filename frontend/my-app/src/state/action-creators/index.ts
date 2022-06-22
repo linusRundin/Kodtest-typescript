@@ -4,7 +4,6 @@
 
 import { Dispatch } from "react"
 import { allCommentsActionType, commentActionType, commentsActionType, saveStateActionType, getStateActionType } from "../actions/index"
-import {State} from "../../state"
 import axios from 'axios'
 
 type commentType = {
@@ -18,7 +17,7 @@ type commentType = {
   };
 type commentObjectType = {
     id: Number,
-    comments2: commentType[]
+    myComments: commentType[]
   }
 
 /**
@@ -33,7 +32,7 @@ export const addComment = (author: String, text: String, cBId: Number | null, cI
 
     return async (dispatch: Dispatch<commentActionType>) => {
         const res = await axios.post(`http://localhost:8080/comment/addComment`, 
-        {name: author, text: text, commentBoardId: cBId, commentId: cId})
+        {name: author, text: text, commentBoardId: cBId, commentId: cId}) // Kolla statuskod efter 200
             dispatch( {
                 type: "addCommentInState",
                 result: res.data,
@@ -51,7 +50,7 @@ export const addComment = (author: String, text: String, cBId: Number | null, cI
 export const getAllComments = () => {
 
     return async (dispatch: Dispatch<allCommentsActionType>) => {
-        const res = await axios.get(`http://localhost:8080/comment/getAllComments`, {})
+        const res = await axios.get(`http://localhost:8080/comment/getAllComments`, {}) // Kolla statuskod efter 200
             dispatch( {type: "listOfComments", listOfComments: res.data })}
 }
 
@@ -94,7 +93,7 @@ export const saveState = (allComments: commentType[], comments: commentObjectTyp
 export const getLastState = () => {
     return async (dispatch: Dispatch<getStateActionType>) => {
         const res = await axios.get(`http://localhost:8080/comment/getLastState`, 
-        {})
+        {}) // Kolla statuskod efter 200
 
             dispatch( {
                 type: "getState",

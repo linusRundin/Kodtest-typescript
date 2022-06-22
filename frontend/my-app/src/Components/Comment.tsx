@@ -3,7 +3,7 @@
  * This component displays a comment with name, text and a reply button
  */
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ReplyComment from "./ReplyComment"
 import Input from "./Input";
 
@@ -23,10 +23,6 @@ export default function AlignItemsList(commentData: postRespond) {
 
     const replyChange = () =>{
       setReply(!reply)
-        if(reply){
-         
-        }
-        
       
     }
       const styles = {
@@ -52,7 +48,7 @@ export default function AlignItemsList(commentData: postRespond) {
                 <Comment.Text>{commentData.comment}</Comment.Text>
             </Comment.Metadata>
             <Comment.Actions onClick={replyChange} >
-                <a>Reply</a>
+                Reply
             </Comment.Actions>
         </Comment.Content>
   </Comment>
@@ -60,8 +56,10 @@ export default function AlignItemsList(commentData: postRespond) {
   </div >
   <div style={styles2}>
   {reply &&
-    <><ReplyComment id={commentData.id} />
-    <Input cId={commentData.id} cBId={null} /></>
+    <>
+      <ReplyComment id={commentData.id} />
+      <Input cId={commentData.id} cBId={null} />
+    </>
     }
 </div>
 </div>

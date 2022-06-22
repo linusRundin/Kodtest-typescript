@@ -4,7 +4,6 @@
 
 import { allCommentsActionType, commentsActionType, commentActionType, saveStateActionType, getStateActionType  } from "../actions/index"
 import produce from 'immer'
-import { mergeBreakpointsInOrder } from "@mui/system";
 
 type commentType = {
     id: Number,
@@ -21,7 +20,7 @@ type commentType = {
 
  type commentObjectType = {
    id: Number,
-   comments2: commentType[]
+   myComments: commentType[]
  }
 
  const commentList: commentObjectType[] = []
@@ -46,10 +45,6 @@ const reducer2 = (state: state = initialState, action: Action ): state =>
       case "getState": {
         draft.allComments = action.state.allComments
         draft.comments = action.state.comments
-
-
-
-
         break;
       }
 
@@ -63,7 +58,7 @@ const reducer2 = (state: state = initialState, action: Action ): state =>
           
           const temp: commentObjectType = {
             id: action.id,
-            comments2: []
+            myComments: []
           }
           draft.comments.push(temp)
           
@@ -73,7 +68,7 @@ const reducer2 = (state: state = initialState, action: Action ): state =>
         } else {
            
             const temp = draft.comments.filter((p) => p.id === action.result.CommentId)[0];
-            if(temp) temp.comments2.push(action.result);
+            if(temp) temp.myComments.push(action.result);
 
         }
 
@@ -89,7 +84,7 @@ const reducer2 = (state: state = initialState, action: Action ): state =>
           
           const temp: commentObjectType = {
             id: action.id,
-            comments2: action.comments
+            myComments: action.comments
           }
     
           draft.comments.push(temp)
@@ -97,7 +92,7 @@ const reducer2 = (state: state = initialState, action: Action ): state =>
         } else {
         
           const temp = draft.comments.filter(p => p.id === action.id)[0];
-              if (temp) temp.comments2 = action.comments;
+              if (temp) temp.myComments = action.comments;
         }
       break;
     }

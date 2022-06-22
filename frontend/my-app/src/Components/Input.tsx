@@ -12,7 +12,6 @@ import { bindActionCreators } from 'redux';
 import { actionCreators, AppDispatch, State } from '../state';
 import { useState } from 'react';
 import { Button } from '@mui/material';
-import { saveState } from '../state/action-creators';
 
 const blue = {
   100: '#DAECFF',
@@ -48,6 +47,7 @@ const StyledTextareaElement = styled('textarea')(
     border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
     border-radius: 8px;
     padding: 12px 12px;
+    resize: none;
   
     &:hover {
       background: ${theme.palette.mode === 'dark' ? '' : grey[100]};
@@ -133,7 +133,7 @@ export default function Input(commentData: postRespond) {
    addComment(name, text, commentData.cBId, commentData.cId)
   };
 
-  const saveCuurentState = async () => {
+  const saveCurentState = async () => {
     saveState(state.allComments, state.comments)
    };
 
@@ -146,7 +146,7 @@ export default function Input(commentData: postRespond) {
       <Button onClick= {async () => {
         sendComment()
         updateList()
-        saveCuurentState()
+        saveCurentState()
         
         } }>Skicka</Button>
     </div>
